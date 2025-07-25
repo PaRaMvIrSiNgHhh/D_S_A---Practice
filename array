@@ -1,0 +1,116 @@
+Dsa arrays
+
+
+1. Check if a Pair with a Given Sum Exists
+
+This problem involves finding two numbers in an array that add up to a specific target sum. A common approach is to use a hash map to store the difference between the target and each element.
+
+def has_pair_with_sum(arr, target):
+seen = set()
+for num in arr:
+if target - num in seen:
+return True
+seen.add(num)
+return False
+
+# Example
+arr = [1, 4, 7, 12]
+target = 8
+print(has_pair_with_sum(arr, target)) # Output: True
+2. Maximum Subarray (Kadane's Algorithm)
+
+This problem requires finding the contiguous subarray with the maximum sum. Kadane's Algorithm solves it efficiently in O(n) time.
+
+def max_subarray_sum(arr):
+max_sum = current_sum = arr[0]
+for num in arr[1:]:
+current_sum = max(num, current_sum + num)
+max_sum = max(max_sum, current_sum)
+return max_sum
+
+# Example
+arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+print(max_subarray_sum(arr)) # Output: 6
+3. Product of Array Except Self
+
+This problem involves calculating the product of all elements in the array except the current element, without using division.
+
+def product_except_self(nums):
+n = len(nums)
+left, right, result = [1] * n, [1] * n, [1] * n
+
+for i in range(1, n):
+left[i] = left[i - 1] * nums[i - 1]
+for i in range(n - 2, -1, -1):
+right[i] = right[i + 1] * nums[i + 1]
+for i in range(n):
+result[i] = left[i] * right[i]
+return result
+
+# Example
+nums = [1, 2, 3, 4]
+print(product_except_self(nums)) # Output: [24, 12, 8, 6]
+4. Find Minimum in Rotated Sorted Array
+
+This problem involves finding the smallest element in a rotated sorted array using binary search.
+
+def find_min(nums):
+left, right = 0, len(nums) - 1
+while left < right:
+mid = (left + right) // 2
+if nums[mid] > nums[right]:
+left = mid + 1
+else:
+right = mid
+return nums[left]
+
+# Example
+nums = [4, 5, 6, 7, 0, 1, 2]
+print(find_min(nums)) # Output: 0
+5. Trapping Rain Water
+
+This problem calculates the amount of water that can be trapped between the bars of a histogram.
+
+def trap(height):
+left, right = 0, len(height) - 1
+left_max, right_max = 0, 0
+water = 0
+
+while left < right:
+if height[left] < height[right]:
+left_max = max(left_max, height[left])
+water += left_max - height[left]
+left += 1
+else:
+right_max = max(right_max, height[right])
+water += right_max - height[right]
+right -= 1
+return water
+
+# Example
+height = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
+print(trap(height)) # Output: 6
+6. Merge Two Sorted Arrays
+
+This problem involves merging two sorted arrays into one sorted array.
+
+def merge_sorted_arrays(arr1, arr2):
+i, j, result = 0, 0, []
+while i < len(arr1) and j < len(arr2):
+if arr1[i] < arr2[j]:
+result.append(arr1[i])
+i += 1
+else:
+result.append(arr2[j])
+j += 1
+result.extend(arr1[i:])
+result.extend(arr2[j:])
+return result
+
+# Example
+arr1 = [1, 3, 5]
+arr2 = [2, 4, 6]
+print(merge_sorted_arrays(arr1, arr2)) # Output: [1, 2, 3, 4, 5, 6]
+Key Takeaways
+
+These problems cover a range of array-related concepts, including searching, sorting, dynamic programming, and two-pointer techniques. Mastering these examples will help you tackle more complex DSA problems effectivel
